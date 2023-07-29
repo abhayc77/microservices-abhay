@@ -20,6 +20,7 @@ public class Order
 	private String orderNumber;
 
 	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "orderId")
 	private List<OrderLineItem> orderLineItems;
 
 }
