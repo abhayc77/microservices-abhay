@@ -1,6 +1,6 @@
-package com.programmingtechie.inventoryservice.controller;
+package com.insightsystem.inventoryservice.controller;
 
-import com.programmingtechie.inventoryservice.service.InventoryService;
+import com.insightsystem.inventoryservice.service.InventoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

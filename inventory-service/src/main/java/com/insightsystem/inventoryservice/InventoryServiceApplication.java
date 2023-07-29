@@ -1,7 +1,7 @@
-package com.programmingtechie.inventoryservice;
+package com.insightsystem.inventoryservice;
 
-import com.programmingtechie.inventoryservice.model.Inventory;
-import com.programmingtechie.inventoryservice.repository.InventoryRepository;
+import com.insightsystem.inventoryservice.model.Inventory;
+import com.insightsystem.inventoryservice.repository.InventoryRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,11 +1,11 @@
-package com.programmingtechie.inventoryservice.model;
+package com.insightsystem.inventoryservice.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "t_inventory")
