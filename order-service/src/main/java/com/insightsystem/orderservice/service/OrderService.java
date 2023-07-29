@@ -1,21 +1,24 @@
 package com.insightsystem.orderservice.service;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
-import com.insightsystem.orderservice.dto.OrderLineItemDto;
-import com.insightsystem.orderservice.dto.OrderRequest;
+
+import com.insightsystem.orderservice.dto.*;
 import com.insightsystem.orderservice.model.Order;
 import com.insightsystem.orderservice.model.OrderLineItem;
 import com.insightsystem.orderservice.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class OrderService
 {
 	private final OrderRepository orderRepository;
+	private final WebClient inventoryServiceWebClient;
 
 	public void placeOrder(OrderRequest orderRequest) {
 		Order order = new Order();
@@ -25,13 +28,35 @@ public class OrderService
 										  .map(this::mapToDto)
 										  .toList();
 		order.setOrderLineItems(orderLineItems);
-		orderRepository.save(order);
+		List<String> skuCodeList = orderLineItems.stream()
+												 .map(OrderLineItem::getSkucode)
+												 .toList();
+		InventoryResponse[] inventoryResponseArray = inventoryServiceWebClient.get()
+															.uri("http://localhost:8082/api/inventory",uriBuilder -> uriBuilder.queryParam("skuCodes",skuCodeList).build())
+															.retrieve()
+															.bodyToMono(InventoryResponse[].class)
+															.block();
+												// check bodyToMono how it works
+		boolean allProductsInStock;
+		if (inventoryResponseArray != null)
+		{
+			 allProductsInStock = Arrays.stream(inventoryResponseArray).allMatch(InventoryResponse::isInStock);
+		} else {
+			allProductsInStock = false;
+		}
+		if (allProductsInStock)
+		{
+			orderRepository.save(order);
+		} else {
+			throw new IllegalArgumentException("Product is not in stock, please try again later");
+		}
+
 	}
 
 	private OrderLineItem mapToDto(final OrderLineItemDto orderLineItemsDto)
 	{
 		final OrderLineItem orderLineItem = new OrderLineItem();
-		orderLineItem.setSkucode(orderLineItemsDto.getSkucode());
+		orderLineItem.setSkucode(orderLineItemsDto.getSkuCode());
 		orderLineItem.setPrice(orderLineItemsDto.getPrice());
 		orderLineItem.setQuantity(orderLineItemsDto.getQuantity());
 		return orderLineItem;
