@@ -27,6 +27,7 @@
 		<maven.compiler.target>19</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring-cloud.version>2022.0.3</spring-cloud.version>
+		<micrometer.version>1.11.2</micrometer.version>
 	</properties>
 
 	<dependencyManagement>
@@ -42,6 +43,13 @@
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
 				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>io.micrometer</groupId>
+				<artifactId>micrometer-tracing-bom</artifactId>
+				<version>${micrometer-tracing.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
