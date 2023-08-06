@@ -71,33 +71,7 @@
                     </excludes>
                 </configuration>
             </plugin>
-			<plugin>
-				<groupId>com.hubspot.maven.plugins</groupId>
-				<artifactId>prettier-maven-plugin</artifactId>
-				<version>0.20</version>
-				<configuration>
-					<prettierJavaVersion>2.0.0</prettierJavaVersion>
-					<printWidth>120</printWidth>
-					<tabWidth>2</tabWidth>
-					<useTabs>true</useTabs>
-					<ignoreConfigFile>true</ignoreConfigFile>
-					<ignoreEditorConfig>true</ignoreEditorConfig>
-					<!-- Use <inputGlobs> to override the default input patterns -->
-					<inputGlobs>
-						<!-- These are the default patterns, you can omit <inputGlobs> entirely unless you want to override them -->
-						<inputGlob>src/main/java/**/*.java</inputGlob>
-						<inputGlob>src/test/java/**/*.java</inputGlob>
-					</inputGlobs>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>validate</phase>
-						<goals>
-							<goal>${plugin.prettier.goal}</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -106,6 +80,20 @@
                     <target>19</target>
                 </configuration>
             </plugin>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>3.3.2</version>
+				<configuration>
+					<from>
+						<image>eclipse-temurin:19-jre-jammy</image>
+					</from>
+					<to>
+						<image>registry.hub.docker.com/abhayc/${project.artifactId}</image>
+					</to>
+				</configuration>
+			</plugin>
+
         </plugins>
     </build>
 </project>
