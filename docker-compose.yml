@@ -163,7 +163,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-order:5431/order-service
     depends_on:
       - postgres-order
-      - broker
+      - kafka
       - zipkin
       - discovery-server
       - api-gateway
@@ -190,6 +190,6 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
     depends_on:
       - zipkin
-      - broker
+      - kafka
       - discovery-server
       - api-gateway
