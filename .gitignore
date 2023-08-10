@@ -1,1 +1,14 @@
 /.idea/
+/api-gateway/target/
+/discovery-server/target/
+/inventory-service/target/
+/mongo-data/
+/mysql_keycloak_data/
+/postgres-inventory/
+/postgres-order/
+/realms/
+/product-service/target/
+/order-service/target/
+/notification-service/target/
+/mongo-data
+/smartcommerce.iml
